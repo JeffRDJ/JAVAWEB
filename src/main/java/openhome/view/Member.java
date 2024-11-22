@@ -63,7 +63,8 @@ public class Member extends HttpServlet {
         out.println("<tr><th><hr></th></tr>");
         out.println("</thead>");
         out.println("<tbody>");
-//        String blabla = req.getParameter("blabla");
+        String blabla = req.getParameter("blabla");
+        req.getSession().setAttribute("blabla",blabla);
 
 
 
