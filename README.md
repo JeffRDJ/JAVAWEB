@@ -1,0 +1,3 @@
+基于servlet的JAVAweb项目
+version1 实现对微博的用户注册功能
+version2 实现微博用户的会话管理，即：发布话题和保存到本地的功能
