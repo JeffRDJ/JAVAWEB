@@ -1,38 +1,32 @@
 package openhome.view;
 
-
-
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.io.*;
-
-import java.io.PrintWriter;
-import java.util.Date;
-import java.util.Map;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/member.view")
-public class Member extends HttpServlet {
-    private final String USERS = "D:\\Intellij IDEA Community   IJ\\endingwork\\users";;
+import java.io.*;
+import java.text.DateFormat;
+import java.util.*;
+
+@WebServlet("/memberpass.view")
+public class Memberpass extends HttpServlet {
+    private final String USERS = "D:\\Intellij IDEA Community   IJ\\endingwork\\users";
     private final String LOGIN_VIEW = "index.html";
 
-    protected void processRequest(HttpServletRequest request,
-                                  HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("login") == null) {
-            response.sendRedirect(LOGIN_VIEW);
+    protected void processRequest(HttpServletRequest req,
+                                  HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession().getAttribute("login") == null) {  //未登录
+            resp.sendRedirect(LOGIN_VIEW);//重定向到登录页面
             return;
         }
 
-        String username = (String) request.getSession().getAttribute("login");
-        // 显示图片
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>");
+        String username = (String) req.getSession().getAttribute("login");
+
+        resp.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.println("<!DOCTYPE html");
         out.println("<html>");
         out.println("<head>");
         out.println("  <meta content='text/html; charset=UTF-8' http-equiv='content-type'>");
@@ -41,46 +35,57 @@ public class Member extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
 
-
         out.println("<div class='leftPanel'>");
         out.println("<img src='images/caterpillar.jpg' alt='Gossip 微网志' /><br><br>");
-        /* 注销链接*/
-        out.println("<a href='logout.do?username="+username+"'>注销"+username+"</a><br>");
-        out.println("</div>");
 
-        out.println("<div style=\"float: left;\">");
+        /*  实作步骤1 */
+
+        out.println("<a href='logout.do?username=" + username + "'>登出 " + username + "</a>");
+        out.println("</div>");
         out.println("<form method='post' action='message.do'>");
         out.println("分享新鲜事...<br>");
-        // 文本框
-        out.println("讯息要 140 字以内<br>");
-        out.println("<textarea cols='40' rows='5' name='blabla'></textarea>");
-//        /*  实作步骤2 */
-//      //发布按钮
-        out.println("<br>");
-        out.println("<button type='submit'>送出</button>");
-        out.println("</form><p>");
 
-          //以下区域显示聊天记录
+        /*  实作步骤2 */
+
+        String blabla = req.getParameter("blabla");
+        if (blabla == null) {
+            blabla = "";
+        } else {
+            out.println("讯息要 140 字以内<br>");
+        }
+        out.println("<textarea cols='60' rows='4' name='blabla'>" + blabla + "</textarea>");
+        out.println("<br>");
+        out.println("<button type='submit'>发布</button>");
+        out.println("</form>");
+
         out.println("<table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>");
+        out.println("<thead>");
+        out.println("<tr><th><hr></th></tr>");
+        out.println("</thead>");
         out.println("<tbody>");
-//        /*  实作步骤3 */
-        /*  从users文件夹下读取当前会员的所有信息 */
+//        String blabla = req.getParameter("blabla");
+//        req.getSession().setAttribute("blabla",blabla);
+
+
+
         Map<Date, String> messages = readMessage(username);
-        for(Map.Entry<Date, String> entry : messages.entrySet()) {
-            Date date = entry.getKey();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            String strDate = sdf.format(date);
-            String message = entry.getValue();
-            //删除信息
-            out.println("<hr><tr>" + username + "<br>"+ message + "<br>" + strDate +"<a href = 'delete.do?message="+date.getTime()+"'>  删除</a>" +"</tr><p>");
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.TAIWAN);
+
+        for (Date date : messages.keySet()) {
+            out.println("<tr><td style='vertical-align: top;'>");
+            out.println(username + "<br>");
+            out.println(messages.get(date) + "<br>");
+            out.println(dateFormat.format(date));
+            out.println("<a href='delete.do?message=" + date.getTime() + "'>删除</a>");
+            out.println("<hr></td></tr>");
         }
 
-        out.println("<hr></tbody>");
+        out.println("</tbody>");
         out.println("</table>");
-        out.println("</dir>");
-        out.println("<hr style='width:100%; height:1px;'>");
+        out.println("<hr style='width: 100%; height: 1px;'>");
         out.println("</body>");
         out.println("</html>");
+
         out.close();
     }
 
@@ -104,16 +109,16 @@ public class Member extends HttpServlet {
 
     private Map<Date, String> readMessage(String username) throws IOException {
         File border = new File(USERS + "/" + username);
-        String[] txts = border.list( filenameFilter);
+        String[] txts = border.list(filenameFilter);
 
         Map<Date, String> messages = new TreeMap<Date, String>(comparator);
-        for(String txt : txts) {
+        for (String txt : txts) {
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(
                             new FileInputStream(USERS + "/" + username + "/" + txt), "UTF-8"));
             String text = null;
             StringBuilder builder = new StringBuilder();
-            while((text = reader.readLine()) != null) {
+            while ((text = reader.readLine()) != null) {
                 builder.append(text);
             }
             Date date = new Date(Long.parseLong(txt.substring(0, txt.indexOf(".txt"))));
@@ -127,7 +132,9 @@ public class Member extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 }
+

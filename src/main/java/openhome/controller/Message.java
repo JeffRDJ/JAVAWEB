@@ -24,8 +24,8 @@ public class Message extends HttpServlet {
             resp.sendRedirect(LOGIN_VIEW);
             return;
         }
-        // 获取留言
-        String blabla = (String) req.getSession().getAttribute("blabla");
+
+        String blabla = req.getParameter("blabla");
 
         if (blabla != null && blabla.length() != 0) {
             // 留言字數是否超过140字
@@ -43,8 +43,6 @@ public class Message extends HttpServlet {
         } else {
             req.getRequestDispatcher(ERROR_VIEW).forward(req, resp);
         }
-
-
     }
 
     private void addMessage(String username, String blabla) throws IOException {
