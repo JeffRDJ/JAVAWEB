@@ -1,18 +1,19 @@
 package openhome.controller;
 
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import openhome.model.UserService;
 
 import java.io.*;
 
 
 @WebServlet("/login.do")
 public class Login extends HttpServlet {
-    private final String USERS = "D:\\Intellij IDEA Community   IJ\\endingwork\\users";
     private final String SUCCESS_VIEW = "member.view";
     private final String ERROR_VIEW = "index.html";
 
@@ -23,8 +24,11 @@ public class Login extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String page = ERROR_VIEW;
+        //获取全局唯一的ServletContext对象
+        ServletContext context = getServletContext();
+        UserService userService = (UserService) context.getAttribute("userService");
         //校验用户名和密码
-        if (checkLogin(username, password)) {
+        if (userService.checkLogin(username, password)) {
             req.getSession().setAttribute("login", username);
             //
             page = SUCCESS_VIEW;
@@ -38,21 +42,6 @@ public class Login extends HttpServlet {
 
     }
 
-    // 检查用户登录，校验用户名和密码
-    private boolean checkLogin(String username, String password) throws IOException {
-        if (username != null && password != null) {
-            for (String file : new File(USERS).list()) {
-                if (file.equals(username)) {
-                    BufferedReader reader = new BufferedReader(new FileReader(USERS + "/" + file + "/profile"));
-                    String passwd = reader.readLine().split("\t")[1];
-                    if (passwd.equals(password)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 
 
 }

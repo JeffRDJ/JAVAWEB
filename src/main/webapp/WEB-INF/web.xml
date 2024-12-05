@@ -3,5 +3,9 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+          <!--设置用户数据文件夹-->
+          <param-name>USERS</param-name>
+          <param-value>D:\\Intellij IDEA Community   IJ\\endingwork\\users</param-value>
+  </context-param>
 </web-app>
