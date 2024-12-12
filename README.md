@@ -2,7 +2,7 @@
  * @Author: Rdj kaisanren@gmail.com
  * @Date: 2024-11-28 20:52:48
  * @LastEditors: Rdj kaisanren@gmail.com
- * @LastEditTime: 2024-12-05 20:05:49
+ * @LastEditTime: 2024-12-12 23:59:37
  * @FilePath: \undefinedd:\Intellij IDEA Community   IJ\endingwork\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -16,9 +16,12 @@ version2 实现微博用户的会话管理，即：发布话题和保存到本�
             <param-name></param-name>
             <param-value></param-value>
           标签设置用户数据文件夹USERS
-2. 将涉及USERS的JAVA文件中的非重写方法全部归到UserService类中方便对业务进行修改，同时解决了USERS的多次设置问题 
-
-
+2. 将涉及USERS的JAVA文件中的非重写方法全部归到UserService类中方便对业务进行修改，同时解决了USERS的多次设置问题
+# version4
+1. 实现对修改version2中的view目录下的*.view用jsp替代，使得页面具有实时更新的功能 新增blah类，实现对会话的新增删除和增加、查看的修改
+2. 增加过滤器和监听器：
+MemberFilter来实现请求过滤，确保只有登录用户才能访问特定资源，增强了应用的安全性。
+通过实现BlogContextListener，我们在Web应用启动时初始化了UserService实例，并将其存储在ServletContext中，为整个应用提供了一个全局可访问的服务实例。
 
 
 

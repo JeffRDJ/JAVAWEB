@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 // 规定拦截的请求地址
-@WebFilter(urlPatterns = {"/message.do", "/delete.do", "/logout.do"},
+@WebFilter(urlPatterns = {"/message.do", "/delete.do", "/member.jsp", "/logout.do"},
         initParams = {
                 @WebInitParam(name = "LOGIN_VIEW", value = "index.html")
         }
