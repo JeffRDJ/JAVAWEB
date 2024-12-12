@@ -1,6 +1,6 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<!--<!DOCTYPE web-app PUBLIC-->
+<!-- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"-->
+<!-- "http://java.sun.com/dtd/web-app_2_3.dtd" >-->
 
 <web-app>
   <context-param>
@@ -8,4 +8,14 @@
           <param-name>USERS</param-name>
           <param-value>D:\\Intellij IDEA Community   IJ\\endingwork\\users</param-value>
   </context-param>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <default-content-type>text/html</default-content-type>
+            <el-ignored>false</el-ignored>
+        </jsp-property-group>
+    </jsp-config>
+
 </web-app>
+

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import openhome.model.Blah;
 import openhome.model.UserService;
 
 import java.io.*;
@@ -14,8 +15,8 @@ import java.util.*;
 @WebServlet("/message.do")
 public class Message extends HttpServlet {
     private final String LOGIN_VIEW = "index.html";
-    private final String SUCCESS_VIEW = "member.view";
-    private final String ERROR_VIEW = "member.view";
+    private final String SUCCESS_VIEW = "member.jsp";
+    private final String ERROR_VIEW = "member.jsp";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,16 +34,19 @@ public class Message extends HttpServlet {
         String blabla = req.getParameter("blabla");
 
 
-
         if (blabla != null && blabla.length() != 0) {
             // 留言字數是否超过140字
             if (blabla.length() < 140) {
                 // 获取登录的用户名
                 String username = (String) req.getSession().getAttribute("login");
                 //微博信息持久化
-                userService.addMessage(username, blabla);
+                Blah blah = new Blah(username, new Date(), blabla);
+                userService.addBlah(blah);
+                //更行登录用户微博信息
+                req.getSession().setAttribute("blahs", userService.getBlahs(blah));
                 //返回登录成功界面
-                resp.sendRedirect(SUCCESS_VIEW);
+//                resp.sendRedirect(SUCCESS_VIEW);
+                req.getRequestDispatcher(SUCCESS_VIEW).forward(req, resp);
             }// 超过140字返回登录成功界面
             else {
                 req.getRequestDispatcher(ERROR_VIEW).forward(req, resp);
@@ -51,8 +55,6 @@ public class Message extends HttpServlet {
             req.getRequestDispatcher(ERROR_VIEW).forward(req, resp);
         }
     }
-
-
 
 
 }

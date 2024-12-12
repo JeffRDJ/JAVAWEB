@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-@WebServlet("/success.view")
+//@WebServlet("/success.view")
 public class Success extends HttpServlet {
     @Override
     //注册成功时进行反馈
