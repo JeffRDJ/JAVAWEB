@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.List" import="openhome.model.Blah" import="java.util.Date" import="java.text.SimpleDateFormat"%>
 <meta content='text/html; charset=UTF-8' http-equiv='content-type'>
 <title>Gossip 微网志</title>
@@ -26,17 +27,19 @@
 <!-- 会员信息显示区 -->
 <table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>
   <tbody>
-  <%
-    List<Blah> blahs = (List<Blah>) session.getAttribute("blahs");
-    for (Blah blah : blahs) {
-        // 迭代遍历显示微博信息（带删除超链接）
-         Date date = blah.getDate();
-         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-         String dateStr = sdf.format(date);
-         out.println("<tr><td>"+ blah.getUsername() +":<br>"+ blah.getTxt() +"<br>" + dateStr
-          +"<a href='delete.do?message="+ date.getTime() +"'>删除</a>" + "<hr></td></tr>");
-    }
-  %>
+
+<c:forEach var = "blahs" items = "${SessionScope.blahs}">
+    <tr>
+        <td>
+            <c:out value="${blahs.username}"> </c:out>:<br>
+            <c:out value="${blahs.txt}"> </c:out><br>
+            <c:out value="${blahs.date}"> </c:out>
+            <a href="delete.do?message=${blahs.date.time}">删除</a>
+            <hr>
+        </td>
+    </tr>
+</c:forEach>
+
   </tbody>
 
 
