@@ -2,7 +2,7 @@
  * @Author: Rdj kaisanren@gmail.com
  * @Date: 2024-11-28 20:52:48
  * @LastEditors: Rdj kaisanren@gmail.com
- * @LastEditTime: 2024-12-19 19:37:42
+ * @LastEditTime: 2024-12-19 20:11:10
  * @FilePath: \undefinedd:\Intellij IDEA Community   IJ\endingwork\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -25,6 +25,23 @@ MemberFilter来实现请求过滤，确保只有登录用户才能访问特定�
 3. 1) 将register.html ---> register.jsp用于可以动态的显示注册失败的错误信息，就在register页面显示而不是重定向到error.jsp
 2) index.html --> index.jsp 实现在用户登录时用户名或者密码错误时进行提示“用户名或密码错误”
 
+
+
+
+
+个人微博blog（Ver 4.0）最终要求
+
+ P222-P236(jsp/el)、P276-279(核心标签库"c:")
+    1.优化： 改用jsp实现视图
+             新建JavaBean：Blah， 优化member视图
+    2.使用el优化    p232-234
+             1) register.html ---> register.jsp 
+                (why? jsp动态网页才能读取：req.setAttribute("errors", errors))
+             2）index.html ---> index.jsp (实现：首页提示“用户名或密码错误”）             
+
+    3.使用jstl进一步优化：P276-277
+             register.jsp
+             member.jsp
 
 
 
