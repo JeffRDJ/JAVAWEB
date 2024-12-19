@@ -8,12 +8,7 @@
 </head>
 <body>
 
-
-
-
-
-
-<c: if test="requestScope.errors != null">
+<c:if test="${requestScope.errors != null}">
     <h1>新增会员失败</h1>
     <ul style='color: rgb(255, 0, 0);'>
         <c:forEach var="error" items="${requestScope.errors}">

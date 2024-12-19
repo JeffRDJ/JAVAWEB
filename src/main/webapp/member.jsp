@@ -28,7 +28,7 @@
 <table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>
   <tbody>
 
-<c:forEach var = "blahs" items = "${SessionScope.blahs}">
+<c:forEach var="blahs" items = "${sessionScope.blahs}">
     <tr>
         <td>
             <c:out value="${blahs.username}"> </c:out>:<br>
