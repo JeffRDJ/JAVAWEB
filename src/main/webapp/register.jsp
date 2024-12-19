@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -5,6 +6,19 @@
 <title>Gossip 微网志</title>
 </head>
 <body>
+<% List<String> errors =(List<String>) request.getAttribute("errors");
+    if (errors != null) {
+%>
+
+<h1>新增会员失败</h1>
+<ul style='color: rgb(255, 0, 0);'>
+        反馈错误信息
+       <%for(String error:errors){
+            out.println("<li>"+error+"</li>");
+        }
+            }%>
+
+
     <h1>会员注册</h1>
     <form method='post' action='register.do'>
         <table bgcolor=#cccccc>

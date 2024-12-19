@@ -14,7 +14,7 @@ import java.util.*;
 
 @WebServlet("/message.do")
 public class Message extends HttpServlet {
-    private final String LOGIN_VIEW = "index.html";
+    private final String LOGIN_VIEW = "index.jsp";
     private final String SUCCESS_VIEW = "member.jsp";
     private final String ERROR_VIEW = "member.jsp";
 

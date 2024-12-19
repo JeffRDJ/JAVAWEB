@@ -16,7 +16,7 @@ import java.io.*;
 @WebServlet("/login.do")
 public class Login extends HttpServlet {
     private final String SUCCESS_VIEW = "member.jsp";
-    private final String ERROR_VIEW = "index.html";
+    private final String ERROR_VIEW = "index.jsp";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,8 +38,10 @@ public class Login extends HttpServlet {
             req.getRequestDispatcher(SUCCESS_VIEW).forward(req, resp);
         } else {
             //sendRedirect：这是 HttpServletResponse 接口的一个方法，用于发送一个即时的重定向命令到客户端。
-            out.println("用户名或密码错误！");
-            resp.sendRedirect(ERROR_VIEW);
+//            out.println("用户名或密码错误！");
+//            resp.sendRedirect(ERROR_VIEW);// 重定向不带数据
+            req.setAttribute("error", "用户名或密码错误！");
+            req.getRequestDispatcher(ERROR_VIEW).forward(req, resp);// 携带数据的重定向
         }
 
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet("/logout.do")
 public class Logout extends HttpServlet {
     // 定义登录的路径
-      private final String LOGIN_VIEW = "index.html";
+      private final String LOGIN_VIEW = "index.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

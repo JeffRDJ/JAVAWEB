@@ -12,7 +12,7 @@ import java.io.IOException;
 // 规定拦截的请求地址
 @WebFilter(urlPatterns = {"/message.do", "/delete.do", "/member.jsp", "/logout.do"},
         initParams = {
-                @WebInitParam(name = "LOGIN_VIEW", value = "index.html")
+                @WebInitParam(name = "LOGIN_VIEW", value = "index.jsp")
         }
 )
 public class MemberFilter implements Filter {

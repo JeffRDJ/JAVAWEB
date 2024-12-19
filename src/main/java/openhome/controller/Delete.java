@@ -15,7 +15,7 @@ import java.util.Date;
 
 @WebServlet("/delete.do")
 public class Delete extends HttpServlet {
-    private final String LOGIN_VIEW = "index.html";
+    private final String LOGIN_VIEW = "index.jsp";
     private final String SUCCESS_VIEW = "member.jsp";
 
     @Override
