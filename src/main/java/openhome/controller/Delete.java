@@ -1,6 +1,5 @@
 package openhome.controller;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,8 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import openhome.model.Blah;
 import openhome.model.UserService;
 
-import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
 @WebServlet("/delete.do")
@@ -33,11 +32,19 @@ public class Delete extends HttpServlet {
         UserService userService = (UserService) getServletContext().getAttribute("userService");
 
         Blah blah = new Blah();
-        blah.setUsername(username);
+        blah.setName(username);
         blah.setDate(new Date(Long.parseLong(message)));
         // userService.deleteMessage(username, message);
-        userService.deleteBlah(blah);
-        req.getSession().setAttribute("blahs", userService.getBlahs(blah));
+        try {
+            userService.deleteBlah(blah);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            req.getSession().setAttribute("blahs", userService.getBlahs(blah));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         resp.sendRedirect(SUCCESS_VIEW);
     }
 

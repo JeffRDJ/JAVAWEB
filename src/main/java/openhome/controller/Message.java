@@ -10,6 +10,7 @@ import openhome.model.Blah;
 import openhome.model.UserService;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 @WebServlet("/message.do")
@@ -41,9 +42,17 @@ public class Message extends HttpServlet {
                 String username = (String) req.getSession().getAttribute("login");
                 //微博信息持久化
                 Blah blah = new Blah(username, new Date(), blabla);
-                userService.addBlah(blah);
+                try {
+                    userService.addBlah(blah);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 //更行登录用户微博信息
-                req.getSession().setAttribute("blahs", userService.getBlahs(blah));
+                try {
+                    req.getSession().setAttribute("blahs", userService.getBlahs(blah));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 //返回登录成功界面
 //                resp.sendRedirect(SUCCESS_VIEW);
                 req.getRequestDispatcher(SUCCESS_VIEW).forward(req, resp);

@@ -3,26 +3,26 @@ package openhome.model;
 import java.util.Date;
 
 public class Blah {
-    private String username;
+    private String name;
     private Date date;
     private String txt;
 
-    public Blah(){
+    public Blah() {
 
     }
 
-    public Blah(String username, Date date, String txt) {
-        this.username = username;
+    public Blah(String name, Date date, String txt) {
+        this.name = name;
         this.date = date;
         this.txt = txt;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getDate() {
@@ -43,6 +43,6 @@ public class Blah {
 
     @Override
     public String toString() {
-        return "Blah{" + "username=" + username + ", date=" + date + ", txt=" + txt + '}';
+        return "Blah{" + "username=" + name + ", date=" + date + ", txt=" + txt + '}';
     }
 }

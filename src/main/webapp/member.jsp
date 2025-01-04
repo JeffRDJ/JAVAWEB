@@ -31,7 +31,7 @@
 <c:forEach var="blahs" items = "${sessionScope.blahs}">
     <tr>
         <td>
-            <c:out value="${blahs.username}"> </c:out>:<br>
+            <c:out value="${blahs.name}"> </c:out>:<br>
             <c:out value="${blahs.txt}"> </c:out><br>
             <c:out value="${blahs.date}"> </c:out>
             <a href="delete.do?message=${blahs.date.time}">删除</a>
