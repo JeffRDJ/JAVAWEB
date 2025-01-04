@@ -43,7 +43,7 @@ MemberFilter来实现请求过滤，确保只有登录用户才能访问特定�
              register.jsp
              member.jsp
 
-# version4.0 将用户的信息和会话通过数据库存储而不是简单的本地文件存储
+# version5.0 将用户的信息和会话通过数据库存储而不是简单的本地文件存储
 
 
 
